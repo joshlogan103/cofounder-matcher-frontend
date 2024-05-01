@@ -95,7 +95,11 @@ export const getProfileById = async (id) => {
 }
 
 export const createProfile = async (payload) => {
-  return await api.post('/profiles/', payload)
+  return await api.post('/profiles/', payload, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
 }
 
 export const updateProfileById = async (id, payload) => {

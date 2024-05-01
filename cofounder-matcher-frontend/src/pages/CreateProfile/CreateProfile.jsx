@@ -2,44 +2,154 @@ import React from 'react'
 import { createProfile } from '../../services/apiServices.js'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
+import './CreateProfile.css'
 
 import { Flex, Button, Avatar, Heading, Text, TextField, DropdownMenu, ScrollArea, Progress, Box } from '@radix-ui/themes'
 
 const CreateProfile = () => {
 
+  const token = sessionStorage.getItem('cofoundermatchersessionkey48484');
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  const userId = payload.userId;
+  console.log(userId)
+
+
   const [profileData, setProfileData] = useState({
+    userId: userId,
     firstName: '',
     lastName: '',
     birthDate: '',
-    currentSchool: '',
+    currentSchool: '663135ef4475f6285743d7af',
     aboutMe: '',
-    linkedInURL: '',
     email: '',
-    schedulingURL: '',
-    profilePicture: ''
-  })
-  const navigate = useNavigate()
+    schedulingUrl: '',
+    profilePicture: null, // This will hold the file
+    location: {
+      country: '',
+      state: '',
+      city: ''
+    },
+    socialMedia: {
+      linkedinUrl: '',
+      twitterUrl: '',
+      instagramUrl: ''
+    }
+  });
+
+  console.log(profileData)
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setProfileData({ ...profileData, [e.target.name]: e.target.value });
-  }
+    const { name, value } = e.target;
+    const keys = name.split('.');
+    if (keys.length === 2) {
+      setProfileData({
+        ...profileData,
+        [keys[0]]: {
+          ...profileData[keys[0]],
+          [keys[1]]: value
+        }
+      });
+    } else {
+      setProfileData({
+        ...profileData,
+        [name]: value
+      });
+    }
+  };
+
+  const handleFileChange = (e) => {
+    setProfileData({
+      ...profileData,
+      profilePicture: e.target.files[0]
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(profileData);
+    const formData = new FormData();
+    Object.keys(profileData).forEach(key => {
+      if (key === 'location' || key === 'socialMedia') {
+        Object.keys(profileData[key]).forEach(subKey => {
+          formData.append(`${key}.${subKey}`, profileData[key][subKey]);
+        });
+      } else {
+        formData.append(key, profileData[key]);
+      }
+    });
+    if (profileData.profilePicture) {
+      formData.append('profilePicture', profileData.profilePicture);
+    }
+
+  
+      let object = {};
+      formData.forEach((value, key) => {
+      object[key] = value;
+      });
+      const json = JSON.stringify(object)
+      console.log(json)
+
     try {
-      const apiResponse = await createProfile(profileData);
+      const apiResponse = await createProfile(json);
       if (apiResponse.status !== 200) {
         throw new Error(apiResponse.error);
       }
-      navigate('/create-profile1');
+      navigate('/profile-created'); // Adjust this route based on your app's routing
     } catch (error) {
       console.error(error);
     }
-  }
+  };
+
+  // const [profileData, setProfileData] = useState({
+  //   firstName: '',
+  //   lastName: '',
+  //   birthDate: '',
+  //   currentSchool: '',
+  //   aboutMe: '',
+  //   linkedinUrl: '',
+  //   twitterUrl: '',
+  //   instagramUrl: '',
+  //   email: '',
+  //   schedulingURL: '',
+  //   profilePicture: '',
+  //   country:'',
+  //   state:'',
+  //   city:''
+  // })
+  // const navigate = useNavigate()
+
+  // const handleChange = (e) => {
+  //   setProfileData({ ...profileData, [e.target.name]: e.target.value });
+  // }
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   console.log(profileData);
+  //   try {
+  //     const apiResponse = await createProfile(profileData);
+  //     if (apiResponse.status !== 200) {
+  //       throw new Error(apiResponse.error);
+  //     }
+  //     navigate('/create-profile1');
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   return (
     <>
+    <Flex direction="column" 
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh', // This ensures that the Flex container takes up the full viewport height
+        width: '100%', // This ensures the Flex container takes up the full viewport width
+        textAlign: 'center' // This centers the text within the container
+      }}>
+      <Box>
       <Heading>Create Profile</Heading>
       <Box maxWidth="300px">
         <Progress value={33}/>
@@ -49,7 +159,7 @@ const CreateProfile = () => {
       <input type="file"  accept="image/*" />
       <br/>
       <Text>Add a profile picture</Text>
-      
+      </Box>
       
       <form onSubmit={handleSubmit}>
         
@@ -91,7 +201,7 @@ const CreateProfile = () => {
         {/* Linkedin */}
         <label htmlFor="linkedInURL">LinkedIn URL:</label>
         <br/>
-        <input type="string" id="linkedInURL" name="linkedInURL" value={profileData.linkedInURL} onChange={handleChange}/>
+        <input type="string" id="linkedinUrl" name="linkedinUrl" value={profileData.linkedInURL} onChange={handleChange}/>
         <br/>
 
         {/* Email */}
@@ -101,9 +211,9 @@ const CreateProfile = () => {
         <br/>
 
         {/* Scheduling URL */}
-        <label htmlFor="schedulingURL">Scheduling Link:</label>
+        <label htmlFor="schedulingUrl">Scheduling Link:</label>
         <br/>
-        <input type="string" id="schedulingURL" name="schedulingURL" value={profileData.schedulingURL} onChange={handleChange}/>
+        <input type="string" id="schedulingUrl" name="schedulingUrl" value={profileData.schedulingURL} onChange={handleChange}/>
         <br/>
 
         {/*Submit Button*/}
@@ -111,6 +221,7 @@ const CreateProfile = () => {
         <br/>
 
       </form>
+      </Flex>
     </>
   )
 }
