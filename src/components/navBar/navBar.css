@@ -1,0 +1,22 @@
+/* Style for the dropdown menu content */
+.dropdown-content {
+    width: 100%;  /* Set the width of the dropdown content to full (optional, adjust as necessary) */
+}
+
+/* Ensures each dropdown item takes up full width */
+.dropdown-menu-item {
+    width: 100%; /* Stretch to fill the width */
+    padding: 0;  /* Remove padding if any */
+}
+
+/* Style for NavLink inside DropdownMenu.Item */
+.nav-link {
+    display: block; /* Makes the link a block element */
+    width: 100%; /* Full width */
+    padding: 10px 20px; /* Adequate padding for clickable area */
+    text-decoration: none; /* Optional: Removes underline */
+    color: inherit; /* Inherits color from parent, adjust as necessary */
+    background: none; /* Removes any background styles */
+    border: none; /* Removes border */
+}
+

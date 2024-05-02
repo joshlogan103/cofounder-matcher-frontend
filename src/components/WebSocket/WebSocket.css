@@ -1,0 +1,138 @@
+<<<<<<< HEAD
+
+.app-container {
+  margin: 20px;
+  font-family: Arial;
+  background-color: rgba(0, 255, 255, 0.605);
+  height: 500px;
+=======
+.app-container {
+  font-family: Arial;
+  height: 100vh;
+  width: 100vw;
+  background-color: #ECE5DD; 
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  background-color: #075E54; 
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+>>>>>>> 4b115c579f26db891c3013ef38dc361c3612ed3a
+}
+
+.messages-list {
+  list-style-type: none;
+  padding: 0;
+<<<<<<< HEAD
+=======
+  flex: 1;
+  overflow-y: auto;
+>>>>>>> 4b115c579f26db891c3013ef38dc361c3612ed3a
+}
+
+.message-item {
+  padding: 10px;
+<<<<<<< HEAD
+  margin: 5px 0;
+  border-radius: 10px;
+  max-width: 60%;
+}
+
+
+.my-message {
+  color: white; 
+  background-color: #4CAF50; 
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.other-message {
+  color: white; 
+  background-color: #a00c0c; 
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+
+.send-message-form {
+  display: flex;
+  margin-top: 20px;
+=======
+  margin: 5px 10px;
+  border-radius: 10px;
+  max-width: 60%;
+  word-wrap: break-word;
+}
+
+.my-message {
+  color: rgba(20, 2, 2, 0.939);
+  background-color: #4caf4fb1; 
+  margin-left: auto;
+  text-align: right;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 200px;
+}
+
+.other-message {
+  color: rgba(18, 2, 2, 0.853);
+  background-color: #a00c0cbd; 
+  text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 200px;
+}
+
+.send-message-form {
+  display: flex;
+  padding: 10px 20px;
+  background-color: #F0F0F0; 
+>>>>>>> 4b115c579f26db891c3013ef38dc361c3612ed3a
+}
+
+.send-message-input {
+  flex: 1;
+<<<<<<< HEAD
+  margin-right: 10px;
+  padding: 10px;
+=======
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+>>>>>>> 4b115c579f26db891c3013ef38dc361c3612ed3a
+}
+
+.send-message-button {
+  padding: 10px 20px;
+<<<<<<< HEAD
+}
+
+
+=======
+  background-color: #075E54; 
+  color: white;
+  border: none;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.message-timestamp {
+  font-size: 12px;
+  color: black; 
+  margin-top: 5px;
+}
+
+.my-message .message-timestamp {
+  text-align: right;
+}
+
+.other-message .message-timestamp {
+  text-align: left;
+}
+>>>>>>> 4b115c579f26db891c3013ef38dc361c3612ed3a
