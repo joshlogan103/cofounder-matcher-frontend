@@ -1,6 +1,6 @@
 import React from 'react'
-import { createProfile } from '../../services/apiServices.js'
-import { useState } from 'react'
+import { createProfile, getSchools } from '../../services/apiServices.js'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import './CreateProfile.css'
 
@@ -19,11 +19,11 @@ const CreateProfile = () => {
     firstName: '',
     lastName: '',
     birthDate: '',
-    currentSchool: '663135ef4475f6285743d7af',
+    currentSchool: '',
     aboutMe: '',
     email: '',
     schedulingUrl: '',
-    profilePicture: null, // This will hold the file
+    profilePicture: null,
     location: {
       country: '',
       state: '',
@@ -38,25 +38,45 @@ const CreateProfile = () => {
 
   console.log(profileData)
 
+  const [schools, setSchools] = useState([])
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getSchools();
+        console.log("Fetched schools data:", response); // Debug: Check the structure of the returned data
+        if (response && Array.isArray(response.data)) { // Ensure there's a 'data' property and it's an array
+          setSchools(response.data);
+        } else {
+          console.error('Expected response.data to be an array, got:', response.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch schools:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     const keys = name.split('.');
-    if (keys.length === 2) {
-      setProfileData({
-        ...profileData,
-        [keys[0]]: {
-          ...profileData[keys[0]],
-          [keys[1]]: value
+    let updatedValue = { ...profileData };
+
+    if (keys.length > 1) {
+        // Handle nested data
+        let temp = updatedValue[keys[0]] || {};
+        for (let i = 1; i < keys.length - 1; i++) {
+            temp[keys[i]] = { ...temp[keys[i]] };
+            temp = temp[keys[i]];
         }
-      });
+        temp[keys[keys.length - 1]] = value;
+        updatedValue[keys[0]] = { ...updatedValue[keys[0]], ...temp };
     } else {
-      setProfileData({
-        ...profileData,
-        [name]: value
-      });
+        updatedValue[name] = value;
     }
+    setProfileData(updatedValue);
   };
 
   const handleFileChange = (e) => {
@@ -95,47 +115,11 @@ const CreateProfile = () => {
       if (apiResponse.status !== 200) {
         throw new Error(apiResponse.error);
       }
-      navigate('/profile-created'); // Adjust this route based on your app's routing
+      navigate('/create-profile1'); // Adjust this route based on your app's routing
     } catch (error) {
       console.error(error);
     }
   };
-
-  // const [profileData, setProfileData] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   birthDate: '',
-  //   currentSchool: '',
-  //   aboutMe: '',
-  //   linkedinUrl: '',
-  //   twitterUrl: '',
-  //   instagramUrl: '',
-  //   email: '',
-  //   schedulingURL: '',
-  //   profilePicture: '',
-  //   country:'',
-  //   state:'',
-  //   city:''
-  // })
-  // const navigate = useNavigate()
-
-  // const handleChange = (e) => {
-  //   setProfileData({ ...profileData, [e.target.name]: e.target.value });
-  // }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   console.log(profileData);
-  //   try {
-  //     const apiResponse = await createProfile(profileData);
-  //     if (apiResponse.status !== 200) {
-  //       throw new Error(apiResponse.error);
-  //     }
-  //     navigate('/create-profile1');
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 
   return (
     <>
@@ -145,9 +129,9 @@ const CreateProfile = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100vh', // This ensures that the Flex container takes up the full viewport height
-        width: '100%', // This ensures the Flex container takes up the full viewport width
-        textAlign: 'center' // This centers the text within the container
+        height: '100vh', 
+        width: '100%',
+        textAlign: 'center'
       }}>
       <Box>
       <Heading>Create Profile</Heading>
@@ -188,6 +172,9 @@ const CreateProfile = () => {
         <br/>
         <select id="currentSchool" name="currentSchool" value={profileData.currentSchool} onChange={handleChange}>
         <option value="">Select School</option>
+        {schools.map(school => (
+              <option key={school.id} value={school.id}>{school.name}</option>
+            ))}
         </select>
         <br/>
 
