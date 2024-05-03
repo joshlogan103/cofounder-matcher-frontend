@@ -173,17 +173,17 @@ export const deleteFavoriteById = async (id) => {
 // Profile Helpers - API Calss
 
 export const getProgramTypes = async () => {
-  return await api.get('/program-type')
+  return await api.get('/profile-list-vals/program-type')
 }
 
 export const getHasIdea = async () => {
-  return await api.get('/has-idea')
+  return await api.get('/profile-list-vals/has-idea')
 }
 
 export const getAreasOfResponsibility = async () => {
-  return await api.get('/areas-of-responsibility')
+  return await api.get('/profile-list-vals/areas-of-responsibility')
 }
 
 export const getIndustryInterests = async () => {
-  return await api.get('/industry-interests')
+  return await api.get('/profile-list-vals/industry-interests')
 }

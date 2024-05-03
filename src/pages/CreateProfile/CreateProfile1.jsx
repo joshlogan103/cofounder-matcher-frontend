@@ -1,7 +1,8 @@
 import React from 'react'
-import { updateProfileById } from '../../services/apiServices.js'
+import { updateProfileByUserId, getProgramTypes } from '../../services/apiServices.js'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
+import './CreateProfile.css'
 
 import { Flex, Button, Heading, Text, Progress, Box } from '@radix-ui/themes'
 
@@ -10,7 +11,6 @@ const CreateProfile1 = () => {
   const token = sessionStorage.getItem('cofoundermatchersessionkey48484');
   const payload = JSON.parse(atob(token.split('.')[1]));
   const userId = payload.userId;
-  console.log(userId)
 
   const [profileData, setProfileData] = useState({
     previousEducation: '',
@@ -20,26 +20,26 @@ const CreateProfile1 = () => {
     impressiveAccomplishmnet: '',
   })
 
-  // const [schools, setSchools] = useState([])
+  const [programTypes, setProgramTypes] = useState([])
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await getSchools();
-  //       console.log("Fetched schools data:", response); // Debug: Check the structure of the returned data
-  //       if (response && Array.isArray(response.data)) { // Ensure there's a 'data' property and it's an array
-  //         setSchools(response.data);
-  //       } else {
-  //         console.error('Expected response.data to be an array, got:', response.data);
-  //       }
-  //     } catch (error) {
-  //       console.error('Failed to fetch schools:', error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getProgramTypes();
+        console.log("Fetched programtypes data:", response); 
+        if (response && Array.isArray(response.data)) { // Ensure there's a 'data' property and it's an array
+          setProgramTypes(response.data);
+        } else {
+          console.error('Expected response.data to be an array, got:', response.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch programtypes:', error);
+      }
+    };
   
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     setProfileData({ ...profileData, [e.target.name]: e.target.value })
@@ -65,7 +65,7 @@ const CreateProfile1 = () => {
     // console.log(json)
 
     try {
-      const apiResponse = await updateProfileById(userId, profileData);
+      const apiResponse = await updateProfileByUserId(userId, profileData);
       if (apiResponse.status !== 200) {
         throw new Error(apiResponse.error);
       }
@@ -103,14 +103,14 @@ const CreateProfile1 = () => {
       <form onSubmit={handleSubmit}>
         
         <br/>
-        {/* ProgramType TODO: Add ProgramType helper functions */}
-        <label htmlFor="programType">School:</label>
+        {/* ProgramType */}
+        <label htmlFor="programType">What type of program are you currently in?</label>
         <br/>
         <select id="programType" name="programType" value={profileData.programType} onChange={handleChange}>
-        <option value="">Select Program Type</option>
-        {programs.map(program => (
-              <option key={program.name} value={program.name}>{program.name}</option>
-            ))}
+          <option value="">Select Program Type</option>
+          {programTypes.map(programType => (
+            <option key={programType} value={programType}>{programType}</option>
+          ))}
         </select>
         <br/>
 
@@ -130,8 +130,8 @@ const CreateProfile1 = () => {
         <label htmlFor="technical">Are you technical?</label>
         <br/>
         <select id="technical" name="technical" value={profileData.technical} onChange={handleChange}>
-        <option value="">Yes</option>
-        <option value="">No</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
         </select>
         <br/>
 

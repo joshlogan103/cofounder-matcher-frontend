@@ -30,11 +30,10 @@ const Navbar = () => {
                             <Button className="dropdown-trigger">Menu &#9776;</Button>
                         </DropdownMenu.Trigger>
                         <DropdownMenu.Content className="dropdown-content">
-                            {['/', '/my-profile', '/profile-search', '/conversations', '/favorites'].map((path, index) => (
+                            {['/my-profile', '/profile-search', '/conversations', '/favorites'].map((path, index) => (
                                 <DropdownMenu.Item key={index} className="dropdown-menu-item">
                                     <NavLink to={path} className="nav-link" onClick={handleClick}>
-                                        {path === '/' ? 'Home' :
-                                        path === '/my-profile' ? 'My Profile' :
+                                        {path === '/my-profile' ? 'My Profile' :
                                         path === '/profile-search' ? 'Search Profiles' :
                                         path === '/conversations' ? 'Inbox' :
                                         path === '/favorites' ? 'Favorites' :

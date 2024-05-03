@@ -2,16 +2,16 @@ import React from 'react'
 import { createProfile, getSchools } from '../../services/apiServices.js'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
+import './CreateProfile.css'
 
-import { Flex, Button, Heading, Text, Progress, Box } from '@radix-ui/themes'
+import { Flex, Button, Heading, Text, Progress, Box, TextField } from '@radix-ui/themes'
 
 const CreateProfile = () => {
 
   const token = sessionStorage.getItem('cofoundermatchersessionkey48484');
   const payload = JSON.parse(atob(token.split('.')[1]));
   const userId = payload.userId;
-  console.log(userId)
-
+  
   const [profileData, setProfileData] = useState({
     userId: userId,
     firstName: '',
@@ -120,14 +120,17 @@ const CreateProfile = () => {
         {/* First Name */}
         <label htmlFor="firstName">First name:</label>
         <br/>
-        <input type="text" name="firstName" value={profileData.firstName} onChange={handleChange}
-        />
+        <TextField.Root id="firstName" name="firstName" value={profileData.firstName} onChange={handleChange} placeholder="First Name">
+          <TextField.Slot/>
+        </TextField.Root>
         <br/>
 
         {/* Last Name */}
         <label htmlFor="lastName">Last name:</label>
         <br/>
-        <input type="text" id="lastName" name="lastName" value={profileData.lastName} onChange={handleChange}/>
+        <TextField.Root id="lastName" name="lastName" value={profileData.lastName} onChange={handleChange} placeholder="Last Name">
+          <TextField.Slot/>
+        </TextField.Root>
         <br/>
 
         {/* Date of Birth */}
@@ -151,25 +154,33 @@ const CreateProfile = () => {
         {/* About Me */}
         <label htmlFor="aboutMe">About me:</label>
         <br/>
-        <input type="text" id="aboutMe" name="aboutMe" value={profileData.about} onChange={handleChange}/>
+        <TextField.Root id="aboutMe" name="aboutMe" value={profileData.aboutMe} onChange={handleChange} placeholder="Tell us about your background, interests, career, and what you're looking for on this app">
+          <TextField.Slot/>
+        </TextField.Root>
         <br/>
 
         {/* Linkedin */}
-        <label htmlFor="linkedinUrl">LinkedIn URL:</label>
+        <label htmlFor="linkedinUrl">What's your LinkedIn URL?</label>
         <br/>
-        <input type="string" id="linkedinUrl" name="linkedinUrl" value={profileData.linkedinUrl} onChange={handleChange}/>
+        <TextField.Root id="linkedinUrl" name="linkedinUrl" value={profileData.linkedinUrl} onChange={handleChange} placeholder="Linkedin URL">
+          <TextField.Slot/>
+        </TextField.Root>
         <br/>
 
         {/* Email */}
         <label htmlFor="email">Email:</label>
         <br/>
-        <input type="email" id="email" name="email" value={profileData.email} onChange={handleChange}/>
+        <TextField.Root id="email" name="email" value={profileData.email} onChange={handleChange} placeholder="Email">
+          <TextField.Slot/>
+        </TextField.Root>
         <br/>
 
         {/* Scheduling URL */}
         <label htmlFor="schedulingUrl">Scheduling Link:</label>
         <br/>
-        <input type="string" id="schedulingUrl" name="schedulingUrl" value={profileData.schedulingUrl} onChange={handleChange}/>
+        <TextField.Root id="schedulingUrl" name="schedulingUrl" value={profileData.schedulingUrl} onChange={handleChange} placeholder="schedulingUrl">
+          <TextField.Slot/>
+        </TextField.Root>
         <br/>
 
         {/*Submit Button*/}
