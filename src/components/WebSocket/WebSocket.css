@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-
-.app-container {
-  margin: 20px;
-  font-family: Arial;
-  background-color: rgba(0, 255, 255, 0.605);
-  height: 500px;
-=======
 .app-container {
   font-family: Arial;
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
-  background-color: #ECE5DD; 
+  background-color: #ffffff; 
   display: flex;
   flex-direction: column;
 }
@@ -21,22 +13,17 @@
   padding: 10px 20px;
   font-size: 16px;
   text-align: center;
->>>>>>> 4b115c579f26db891c3013ef38dc361c3612ed3a
 }
 
 .messages-list {
   list-style-type: none;
   padding: 0;
-<<<<<<< HEAD
-=======
   flex: 1;
   overflow-y: auto;
->>>>>>> 4b115c579f26db891c3013ef38dc361c3612ed3a
 }
 
 .message-item {
   padding: 10px;
-<<<<<<< HEAD
   margin: 5px 0;
   border-radius: 10px;
   max-width: 60%;
@@ -65,7 +52,6 @@
 .send-message-form {
   display: flex;
   margin-top: 20px;
-=======
   margin: 5px 10px;
   border-radius: 10px;
   max-width: 60%;
@@ -82,8 +68,8 @@
 }
 
 .other-message {
-  color: rgba(18, 2, 2, 0.853);
-  background-color: #a00c0cbd; 
+  color: rgba(0, 0, 0, 0.853);
+  background-color: #b6b6b6bd; 
   text-align: left;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 200px;
@@ -93,28 +79,22 @@
   display: flex;
   padding: 10px 20px;
   background-color: #F0F0F0; 
->>>>>>> 4b115c579f26db891c3013ef38dc361c3612ed3a
 }
 
 .send-message-input {
   flex: 1;
-<<<<<<< HEAD
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  background: lightgray;
   margin-right: 10px;
-  padding: 10px;
-=======
   padding: 10px;
   border: none;
   border-radius: 20px;
->>>>>>> 4b115c579f26db891c3013ef38dc361c3612ed3a
 }
 
 .send-message-button {
   padding: 10px 20px;
-<<<<<<< HEAD
-}
-
-
-=======
   background-color: #075E54; 
   color: white;
   border: none;
@@ -135,4 +115,3 @@
 .other-message .message-timestamp {
   text-align: left;
 }
->>>>>>> 4b115c579f26db891c3013ef38dc361c3612ed3a

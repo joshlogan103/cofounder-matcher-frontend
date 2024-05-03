@@ -1,19 +1,25 @@
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import "./WebSocket.css"
+import moment from "moment";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { userId } from "../../helpers/index"
 
-const socket = 'null' //io('http://localhost:3000');
 
-const WebSocket = () => {
+const socket = io(import.meta.env.VITE_API_URL);
+
+const WebSocket = ({ messages, setMessages, receiverId }) => {
+  const { conversationId } = useParams()
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMessages] = useState([]);
   // userId: Uniquely identifies the user in the room
-  const [userId, setUserId] = useState('');
+  // const [userId, setUserId] = useState('');
 
   // Here, i listen when the user connects to the chat and then  got assign an unique user ID.
   useEffect(() => {
     socket.on('connect', () => {
-      setUserId(socket.id);
+      // setUserId(socket.id);
     });
 
     // everytime we get a new msj from the server then we add it to the message list
@@ -30,13 +36,25 @@ const WebSocket = () => {
     };
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (message) {
-      const newMessage = { text: message, user: userId };
-      socket.emit('message', newMessage);
-      setMessage('');
-    }
+
+    await axios.post(`http://localhost:3001/messages/${conversationId}`, {
+      content: message, 
+      senderId: userId,
+      receiverId,
+      timeSent: Date.now()
+    }).then((res) => {
+        socket.emit('message', res.data);
+        setMessages(prevMessages => [...prevMessages, res.data]);
+        setMessage('');
+      console.log(res, "websocket response");
+    })
+
+    // if (message) {
+    //   const newMessage = { text: message, user: userId };
+    //   setMessage('');
+    // }
   };
 
   return (
@@ -45,8 +63,10 @@ const WebSocket = () => {
       <ul className="messages-list">
         {messages.map((msg, index) => (
           <li key={index} className={`message-item ${msg.user === userId ? 'my-message' : 'other-message'}`}>
-            {msg.text}
-            <div className="message-timestamp">{msg.timestamp}</div>
+            {msg.content}
+            <div style={{ textAlign: 'right' }} className="message-timestamp">
+              <span>{moment(msg.createdAt).fromNow()}</span>
+            </div>
           </li>
         ))}
       </ul>

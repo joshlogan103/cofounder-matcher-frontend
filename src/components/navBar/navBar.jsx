@@ -22,7 +22,7 @@ const Navbar = () => {
     }
 
     return (
-        <>
+        <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 2000 }}>
             { isUserLoggedIn && (
                 <Flex gap="3" justify="end">
                     <DropdownMenu.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -46,7 +46,7 @@ const Navbar = () => {
                     </DropdownMenu.Root>
                 </Flex>
             )}
-        </>
+        </div>
     )
 }
 

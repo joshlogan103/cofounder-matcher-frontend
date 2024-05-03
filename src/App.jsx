@@ -15,6 +15,7 @@ import CreateProfile2 from './pages/CreateProfile/CreateProfile2.jsx';
 import Login from './pages/Login/Login.jsx';
 import ActiveConversation from './pages/ActiveConversation/ActiveConversation.jsx';
 import MyProfile from './pages/MyProfile/MyProfile.jsx';
+import EditProfile from './pages/EditProfile/EditProfile.jsx';
 import Favorites from './pages/Favorites/Favorites.jsx';
 import Navbar from './components/navBar/navBar.jsx'
 import ProtectedRoutes from './protectedRoutes/ProtectedRoutes.jsx';
@@ -32,8 +33,9 @@ function App() {
         <Route path='/create-profile' element={<CreateProfile />} />
         <Route path='/create-profile1' element={<CreateProfile1 />} />
         <Route path='/create-profile2' element={<CreateProfile2 />} />
+        <Route path='/edit-profile' element={<EditProfile />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/active-conversation' element={<ActiveConversation />} />
+        <Route path='/conversations/:conversationId' element={<ActiveConversation />} />
         <Route path='/favorites' element={<Favorites />} />
       </Routes>
     </>
