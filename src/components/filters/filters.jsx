@@ -57,7 +57,7 @@ const Filters = ({ setFilters }) => {
             </DropdownMenu.Trigger>
             <DropdownMenu.Content>
               {schools && schools.map((school, index) => (
-                <DropdownMenu.Item key={index} onSelect={() => handleSchoolChange(school.name)}>{school.name}</DropdownMenu.Item>
+                <DropdownMenu.Item key={index} onSelect={() => handleSchoolChange(school._id)}>{school.name}</DropdownMenu.Item>
               ))}
             </DropdownMenu.Content>
           </DropdownMenu.Root>

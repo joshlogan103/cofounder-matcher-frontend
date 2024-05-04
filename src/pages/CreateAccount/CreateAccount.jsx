@@ -1,9 +1,11 @@
 // Import functions and styles
 
 import './CreateAccount.css'
-import { useState } from 'react'
-import { signup } from '../../services/apiServices.js'
+import { useState, useContext } from 'react'
+import { signup, login, verifyLoggedIn } from '../../services/apiServices.js'
 import { useNavigate } from 'react-router'
+import { setToken } from '../../services/tokenServices.js'
+import { AuthContext } from '../../contexts/AuthContext.jsx'
 
 // Import Radix components
 
@@ -15,17 +17,24 @@ const CreateAccount = () => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const navigate = useNavigate()
+  const { setIsUserLoggedIn } = useContext(AuthContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log({email: email, password: password})
   
     try {
-      const apiResponse = await signup({ email: email, password: password })
-      if (apiResponse.status != 200) {
-        throw Error(apiResponse.error)
+      const apiResponseSignup = await signup({ email: email, password: password })
+      if (apiResponseSignup.status != 200) {
+        throw Error(apiResponseSignup.error)
       }
-      navigate('/login')
+      const apiResponseLogin = await login({ email: email, password: password})
+      if (apiResponseLogin.status != 200) {
+        throw Error(apiResponseLogin.error)
+      }
+      setToken(apiResponseLogin.data.accessToken)
+      setIsUserLoggedIn(verifyLoggedIn())
+      navigate('/create-profile')
     } catch (error) {
       console.error(error)
     }

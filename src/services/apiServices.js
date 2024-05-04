@@ -90,6 +90,11 @@ export const getProfiles = async () => {
   return await api.get('/profiles')
 }
 
+
+export const getProfileByUserId = async (userId) => {
+  return await api.get(`/profiles/user-profile/${userId}`)
+}
+
 export const getProfilesByQuery = async (filters) => {
   const queryParams = new URLSearchParams(filters).toString();
   console.log(queryParams)
@@ -160,12 +165,12 @@ export const getFavoriteById = async (id) => {
   return await api.get(`/favorites/${id}`)
 }
 
-export const getAllFavoritesByUserId = async (userId) => {
-  return await api.get(`/favorites/my-favorites/${userId}`)
+export const getAllFavoritesByUserId = async () => {
+  return await api.get(`/favorites/my-favorites`)
 }
 
 export const createFavorite = async (payload) => {
-  return await api.post('/favorites/', payload)
+  return await api.post('/favorites', payload)
 }
 
 export const updateFavoriteById = async (id, payload) => {
