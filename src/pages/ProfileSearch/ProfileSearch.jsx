@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Filters from '../../components/filters/filters.jsx';
-import { Avatar, Grid, Button, Text, Card, Box} from '@radix-ui/themes';
+import { Grid, Button, Box} from '@radix-ui/themes';
 import { NavLink } from 'react-router-dom';
 import { getProfilesByQuery } from '../../services/apiServices.js';
 import ProfileCard from '../../components/profileCard/profileCard.jsx';
-import { getSchools } from '../../services/apiServices.js';
-import { getSchoolById } from '../../services/apiServices.js'; 
-import { getProgramTypes } from '../../services/apiServices.js';
-
 import AllProfileInfo from '../../components/allProfileInfo/allProfileInfo.jsx';
 
 
@@ -47,18 +43,46 @@ const ProfileSearch = () => {
 
   const handleSkip = () => {
     setProfileIndex(prevIndex => (prevIndex + 1) % profileArray.length);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth"
+    })
   };
+
+  if (loading) return <div>Loading...</div>;
 
   console.log("Rendering with profile:", profileArray[profileIndex]);
 
   return (
     <>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
       <Box style={{
         marginTop: '70px',
-        width: '100%'}}>
+        width: '85vw',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+        }}>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          marginBottom:  '30px'
+        }}>
         <Filters setFilters={setFilters} />
-      
-      <Grid columns={3} rows={4} style={{ gap: '20px', marginBottom: '20px' }}>
+        </div>
+      <Grid columns={3} rows={4} style={{
+        gap: '20px',
+        marginBottom: '20px',
+        width: '100%',
+        justifyContent: 'center'
+      }}>
       <ProfileCard profile={profileArray[profileIndex]} />
       <AllProfileInfo profile={profileArray[profileIndex]} />
       <div style={{
@@ -80,6 +104,7 @@ const ProfileSearch = () => {
       </Grid>
 
       </Box>
+      </div>
     </>
   );
 };

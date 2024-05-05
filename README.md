@@ -1,12 +1,12 @@
 # Cofounder-Matcher
 
-## Screenshot/Logo
-
-![Logo](./images/logo.png)
+![Logo](./images/logo1.png)
 
 ## Description
 
 This is an application to enable students to find and connect with other people on their campuses that are also interested in founding or working on a new business. Users are able to create a profile containing information about their interests, ideas and skills. Users can view other profiles and initiate conversations with others to propose working together and becoming cofounders.
+
+![Homepage](./images/Cofounder-Matcher-Home.png)
 
 ## Getting Started 
 
@@ -52,5 +52,9 @@ Josh Logan -
 * Bcyrpt
 
 ## Next Steps
+
+* Cache logged in state client side with a cache control directive to avoid loading times for components and protected routes that require checking that the user is logged in
+* Revisit Socket.io and implement chat via the websocket
+
 
 

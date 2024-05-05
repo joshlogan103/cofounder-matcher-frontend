@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import './filters.css';
 import { CheckboxGroup, DropdownMenu, Button, Flex } from '@radix-ui/themes'
 import {getSchools} from '../../services/apiServices.js';
-import {getSchoolById} from '../../services/apiServices.js';
 import { getProgramTypes } from '../../services/apiServices.js';
 
 

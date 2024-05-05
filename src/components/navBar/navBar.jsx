@@ -22,6 +22,10 @@ const Navbar = () => {
         navigate('/login')
     }
 
+    const handleGoToHome = () => {
+        navigate('/')
+    }
+
     return (
         <div style={{
             position: 'fixed', 
@@ -29,14 +33,14 @@ const Navbar = () => {
             backgroundColor: 'black', 
             width: '100%', 
             zIndex: 2000,
-            display: 'flex',  // Ensures the container is a flex container
-            justifyContent: 'space-between', // Pushes children to opposite ends
-            alignItems: 'center', // Align items vertically in the middle
-            padding: '10px 20px' // Add some padding around the contents
+            display: 'flex',  
+            justifyContent: 'space-between', 
+            alignItems: 'center', 
+            padding: '10px 20px' 
         }}>
             { isUserLoggedIn && (
                 <Flex style={{ width: '100%', height: '100%' }}>
-                    <img src={logo} alt="Logo" style={{ width: '30px', height: 'auto' }} className="logo" />
+                    <img src={logo} alt="Logo" style={{ width: '30px', height: 'auto' }} onClick={handleGoToHome} className="logo" />
                     <DropdownMenu.Root open={isOpen} onOpenChange={setIsOpen}>
                         <DropdownMenu.Trigger style={{ marginLeft: 'auto' }} asChild>
                             <Button className="dropdown-trigger">Menu &#9776;</Button>
@@ -53,7 +57,7 @@ const Navbar = () => {
                                     </NavLink>
                                 </DropdownMenu.Item>
                             ))}
-                            <Button className='logout' onClick={handleLogOut}>Log Out</Button>
+                            <Button className='logout' onClick={handleLogOut} style={{ marginTop: '5px'}}>Log Out</Button>
                         </DropdownMenu.Content>
                     </DropdownMenu.Root>
                 </Flex>

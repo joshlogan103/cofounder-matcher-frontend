@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getProfileByUserId, getSchoolById } from '../../services/apiServices';
 import { Box, Button, Heading, Card, Flex, Text } from '@radix-ui/themes'
@@ -91,103 +91,103 @@ const MyProfile = () => {
         </Box>
         
       {/* Basic Information */}
-        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '90%', paddingTop: 20, paddingBottom: 10, marginTop: 50 }}>
+        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '90%', maxWidth: '800px', paddingTop: 20, paddingBottom: 10, marginTop: 50 }}>
             <Heading size="4">Basic Information</Heading>
             <br/>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.profilePicture ? <img src={profile.profilePicture} alt="Profile" style={{ width: 100, height: 100, borderRadius: 50 }} /> : 'No image'}</Text>
             </Box>
             <br/>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <strong>Name</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.fullName || `${profile.firstName} ${profile.lastName}`}</Text>
             </Box>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <strong>Birth Date</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.birthDate ? new Date(profile.birthDate).toLocaleDateString() : 'Not provided'}</Text>
             </Box>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <strong>Email</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.email}</Text>
             </Box>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <strong>About Me</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.aboutMe || 'Not provided'}</Text>
             </Box>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <strong>LinkedIn URL</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.linkedinUrl ? <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer">View LinkedIn</a> : 'No LinkedIn profile'}</Text>
             </Box>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <strong>Scheduling URL</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.schedulingUrl ? <a href={profile.schedulingUrl} target="_blank" rel="noopener noreferrer">Schedule a meeting</a> : 'Not available'}</Text>
             </Box>
         </Card>
 
 
-        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '90%', paddingTop: 20, paddingBottom: 10, marginTop: 20 }}>
+        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '90%', maxWidth: '800px',  paddingTop: 20, paddingBottom: 10, marginTop: 20 }}>
             <Heading size="4">Education and Experience</Heading>
             <br/>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <strong>Current School</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{schoolName|| 'Not provided'}</Text>
             </Box>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <strong>Current Program Type</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.programType || 'Not specified'}</Text>
             </Box>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <strong>Technical</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.technical ? 'Yes' : 'No'}</Text>
             </Box>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <strong>Previous Education</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.previousEducation || 'Not specified'}</Text>
             </Box>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <strong>Employment History</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.employmentHistory || 'Not provided'}</Text>
             </Box>
-            <Box>
+            <Box style={{paddingBottom: '10px'}}>
               <strong>Impressive Accomplishment</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.impressiveAccomplishment || 'Not provided'}</Text>
             </Box>
         </Card>
 
-        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '90%', paddingTop: 20, paddingBottom: 10, marginTop: 20, marginBottom: 20 }}>
+        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '90%', maxWidth: '800px',  paddingTop: 20, paddingBottom: 10, marginTop: 20, marginBottom: 20 }}>
         <Heading size="4">Interests and Ideas</Heading>
             <br/>
-        <Box>
-          <strong>Who I'm Interested in Connecting With</strong>
+        <Box style={{paddingBottom: '10px'}}>
+          <strong>Who I&apos;m Interested in Connecting With</strong>
           <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.connectionInterest || 'Not specified'}</Text>
         </Box>
-        <Box>
+        <Box style={{paddingBottom: '10px'}}>
           <strong>Industry Interests</strong>
           <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.industryInterests?.join(', ') || 'None'}</Text>
         </Box>
-        <Box>
+        <Box style={{paddingBottom: '10px'}}>
           <strong>Interested in Being a Cofounder</strong>
           <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.interestedInBeingACofounder ? 'Yes' : 'No'}</Text>
         </Box>
-        <Box>
+        <Box style={{paddingBottom: '10px'}}>
           <strong>Business Idea</strong>
           <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.hasIdea || 'Not specified'}</Text>
         </Box>
-        <Box>
+        <Box style={{paddingBottom: '10px'}}>
           <strong>Potential Ideas</strong>
           <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.potentialIdeas?.join(', ') || 'None'}</Text>
         </Box>
-        <Box>
+        <Box style={{paddingBottom: '10px'}}>
           <strong>Areas of Responsibility</strong>
           <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.areasOfResponsibility?.join(', ') || 'Not specified'}</Text>
         </Box>
-        <Box>
+        <Box style={{paddingBottom: '10px'}}>
           <strong>Cofounder Desired Qualities</strong>
           <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.cofounderDesiredQualities?.join(', ') || 'None'}</Text>
         </Box>
         </Card>
 
-        <Button onClick={handleEditProfile}>Edit Profile</Button>
+        <Button onClick={handleEditProfile} style={{marginBottom: '20px', minWidth: '100px'}}>Edit Profile</Button>
     </Flex>
   </>
   );

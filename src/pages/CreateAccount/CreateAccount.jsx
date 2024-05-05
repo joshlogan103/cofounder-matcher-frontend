@@ -48,6 +48,12 @@ const CreateAccount = () => {
             <Container pt={'7'} align={'center'}>
               <Text size={'7'}>Create an Account</Text>
             </Container>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '80vw',
+              maxWidth: '400px'
+            }}>
             <form onSubmit={handleSubmit}>
               <Flex direction={'column'} gap={'3'} pt={'5'}>
                   <Text>Email</Text>
@@ -62,11 +68,16 @@ const CreateAccount = () => {
                     value={password}
                     onChange={e => { setPassword(e.target.value) }}
                   />
-                  <Button mt={'5'} type={'submit'}>Submit</Button>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}>
+                    <Button mt={'5'} type={'submit'} style={{ width: '100px'}}>Submit</Button>
+                  </div>
               </Flex>
             </form>
+            </div>
           </Flex>
-          
         </Box>
       </Flex>
     </div>

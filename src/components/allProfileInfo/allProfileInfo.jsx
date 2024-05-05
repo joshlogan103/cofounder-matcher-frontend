@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, Card, Box, Heading } from '@radix-ui/themes';
 import { getSchoolById } from '../../services/apiServices';
-import CreateProfile from '../../pages/CreateProfile/CreateProfile.jsx';
-import CreateProfile2 from '../../pages/CreateProfile/CreateProfile2.jsx';  
-import CreateProfile1 from '../../pages/CreateProfile/CreateProfile1.jsx';
+
 
 const AllProfileInfo = ({ profile }) => {
   const [schoolName, setSchoolName] = useState('')
@@ -31,7 +29,7 @@ const AllProfileInfo = ({ profile }) => {
       {profile && (
         <>
           {/* Basic Information */}
-        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '90%', paddingTop: 20, paddingBottom: 10 }}>
+        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '100%', paddingTop: 20, paddingBottom: 10 }}>
             <Heading size="4">Basic Information</Heading>
             <br/>
             <Box>
@@ -61,7 +59,7 @@ const AllProfileInfo = ({ profile }) => {
         </Card>
 
 
-        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '90%', paddingTop: 20, paddingBottom: 10, marginTop: 20 }}>
+        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '100%', paddingTop: 20, paddingBottom: 10 }}>
             <Heading size="4">Education and Experience</Heading>
             <br/>
             <Box>
@@ -90,11 +88,11 @@ const AllProfileInfo = ({ profile }) => {
             </Box>
         </Card>
 
-        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '90%', paddingTop: 20, paddingBottom: 10, marginTop: 20, marginBottom: 20 }}>
+        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '100%', paddingTop: 20, paddingBottom: 10, marginBottom: 45 }}>
         <Heading size="4">Interests and Ideas</Heading>
             <br/>
         <Box>
-          <strong>Who I'm Interested in Connecting With</strong>
+          <strong>Who I&apos;m Interested in Connecting With</strong>
           <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.connectionInterest || 'Not specified'}</Text>
         </Box>
         <Box>

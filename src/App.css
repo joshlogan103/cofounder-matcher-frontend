@@ -23,3 +23,7 @@ html, body, #root {
   z-index: 1;  /* Ensure it's above the background */
   padding-top: 60px;  /* Optional: Adjust for navbar height */
 }
+
+button:hover {
+  cursor: pointer;
+}

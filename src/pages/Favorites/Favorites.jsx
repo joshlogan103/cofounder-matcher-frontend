@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Avatar, Grid, Text, Card, Box, Heading } from '@radix-ui/themes';
+import { useState, useEffect } from 'react';
+import { Box, Heading } from '@radix-ui/themes';
 import { getAllFavoritesByUserId, getProfileById } from '../../services/apiServices';
 import ProfileCard from '../../components/profileCard/profileCard.jsx';
 const Favorites = () => {
@@ -27,12 +27,26 @@ const Favorites = () => {
     };
     fetchFavoritesAndProfiles();
   }, []);
-  if (loading) return <div>Loading...</div>;
+
   if (error) return <div>Error: {error}</div>;
-  if (profiles.length === 0) return <div>No Favorites Found</div>;
+
+  if (loading) return (
+    <Box style={{ width: '100%', padding: '20px', textAlign: 'center' }}>
+    <Heading>Favorited Profiles</Heading>
+    <div>Loading...</div>
+    </Box>
+  )
+
+  if (profiles.length === 0) return (
+    <Box style={{ width: '100%', padding: '20px', textAlign: 'center' }}>
+    <Heading>Favorited Profiles</Heading>
+    <div>No Favorited Profiles Found</div>
+    </Box>
+  )
+
   return (
-<Box style={{ width: '100%', padding: '20px', textAlign: 'center' }}>
-      <Heading>My Favorite Profiles</Heading>
+    <Box style={{ width: '100%', padding: '20px', textAlign: 'center' }}>
+      <Heading>Favorited Profiles</Heading>
       <Box
         style={{
           display: 'flex',
@@ -43,7 +57,7 @@ const Favorites = () => {
         }}
       >
         {profiles.map((profile) => (
-          <Box key={profile._id} style={{ width: '80%' }}>
+          <Box key={profile._id} >
             <ProfileCard profile={profile} />
           </Box>
         ))}

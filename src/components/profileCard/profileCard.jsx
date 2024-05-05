@@ -1,11 +1,10 @@
-import React from 'react';
 import { Card, Text, Button, Avatar, Box, Flex } from '@radix-ui/themes';
 import { useState, useEffect } from 'react';
-import { createFavorite, getSchoolById } from '../../services/apiServices.js';
-
+import { createFavorite, getSchoolById, deleteFavoriteById, getAllFavoritesByUserId } from '../../services/apiServices.js';
 
 const ProfileCard = ({ profile }) => { 
   const [ favoriteStatus, setFavoriteStatus ] = useState(false)
+  const [ favoriteId, setFavoriteId ] = useState('')
   const [schoolName, setSchoolName] = useState('')
 
   useEffect(() => {
@@ -24,8 +23,21 @@ const ProfileCard = ({ profile }) => {
     };
 
     fetchSchoolName();
+    
   }, [profile]);
 
+  useEffect(() => {
+    const fetchFavoriteStatus = async () => {
+      const favoritesArray = await getAllFavoritesByUserId()
+      favoritesArray.forEach(favorite => {
+        if (favorite.profileFavorited === profile._id) {
+          setFavoriteStatus(true)
+          setFavoriteId(favorite._id)
+        }
+      })
+    }
+    fetchFavoriteStatus()
+  },[])
 
   const addToFavorites = async () => {
     try {
@@ -36,13 +48,22 @@ const ProfileCard = ({ profile }) => {
     }
   };
 
+  const removeFromFavorites = async () => {
+    try {
+      await deleteFavoriteById(favoriteId)
+      console.log("Removed from favorites:", profile);
+    } catch (error) {
+      console.error("Error adding to favorites:", error);
+    }
+  }
+
   if (!profile) {
     return <Card style={{ margin: '15px', padding: '20px' }}>Loading profile...</Card>;
   }
 
   return (
 
-    <Box width="100%" style={{ marginBottom: '20px' }}>
+    <Box style={{ marginBottom: '20px', width: '90vw', maxWidth: '800px'}}>
     <Card>
       <Flex align="center" justify="space-between">
         <Flex gap="3" align="center" style={{ flex: 1 }}>
@@ -62,9 +83,7 @@ const ProfileCard = ({ profile }) => {
             </Text>
           </Box>
         </Flex>
-        <Button onClick={addToFavorites} style={{ marginLeft: '20px' }}>
-          ⭐
-        </Button>
+        <Button onClick={favoriteStatus === false ? addToFavorites : removeFromFavorites}>{favoriteStatus === true ? '⭐' : 'Hi'}</Button>
       </Flex>
     </Card>
   </Box>

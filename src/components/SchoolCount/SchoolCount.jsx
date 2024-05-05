@@ -1,4 +1,4 @@
-import { Text, Box, Heading, Card, Flex } from '@radix-ui/themes'
+import { Text, Heading, Card, Flex } from '@radix-ui/themes'
 import { useState, useEffect } from 'react'
 import { getSchoolById } from '../../services/apiServices'
 
