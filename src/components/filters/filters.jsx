@@ -41,9 +41,13 @@ const Filters = ({ setFilters }) => {
   
   return(
     <>
-      <div>Filters</div>
+    <Flex direction={'column'} align={'center'}>
+      <div style={{
+        fontSize: '24px',
+        paddingBottom: '10px'
+      }}>Filters</div>
 
-      <Flex gap="3" direction="row" wrap="wrap" asChild>
+      <Flex gap="3" direction="row" wrap="wrap" align={'center'} asChild>
         <div>
 
           {/* Schools Dropdown */}
@@ -83,24 +87,8 @@ const Filters = ({ setFilters }) => {
           
         </div>
       </Flex>
+      </Flex>
     </>
   )
 }
 export default Filters;
-
-// const filtersObj = {
-//   currentSchool: '',
-//   programTypes: '',
-//   technical: null
-// }
-
-// const query = {}
-
-// const filtersToSend = Object.entries(filtersObj).map(([key, value]) => {
-//   if (value) {
-//     query.key = value
-//   }
-//   return null;
-// })
-
-// query = { currentSchool: 'Harvard' }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getProfileByUserId, getSchoolById } from '../../services/apiServices';
 import { Box, Button, Heading, Card, Flex, Text } from '@radix-ui/themes'
+import Loading from '../../components/Loading/Loading';
 import './MyProfile.css'
 
 const MyProfile = () => {
@@ -63,9 +64,9 @@ const MyProfile = () => {
     fetchSchoolName();
   }, [profile]);
 
-  if (loading) {
-    return <div>Loading profile...</div>;
-  }
+  if (loading) return (
+    <Loading />
+  )
 
   if (error) {
     return <div>Error: {error}</div>;

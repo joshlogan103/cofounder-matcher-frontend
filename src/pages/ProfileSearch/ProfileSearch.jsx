@@ -1,23 +1,22 @@
 import { useState, useEffect } from 'react';
 import Filters from '../../components/filters/filters.jsx';
-import { Grid, Button, Box} from '@radix-ui/themes';
+import { Grid, Button, Box } from '@radix-ui/themes';
 import { NavLink } from 'react-router-dom';
 import { getProfilesByQuery } from '../../services/apiServices.js';
 import ProfileCard from '../../components/profileCard/profileCard.jsx';
 import AllProfileInfo from '../../components/allProfileInfo/allProfileInfo.jsx';
-
-
+import Loading from '../../components/Loading/Loading.jsx';
 
 const ProfileSearch = () => {
   const [filters, setFilters] = useState({
-    currentSchool: '', program:'', technical: false
+    currentSchool: '', program: '', technical: false
   });
   const [profileArray, setProfileArray] = useState([]);
   const [profileIndex, setProfileIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const query = {}
-  
+
   useEffect(() => {
     async function fetchProfiles() {
       setLoading(true);
@@ -34,9 +33,9 @@ const ProfileSearch = () => {
         setProfileIndex(0);
         console.log(profileArray)
       } else {
-        setProfileArray([]); 
+        setProfileArray([]);
       }
-      setLoading(false); 
+      setLoading(false);
     }
     fetchProfiles();
   }, [filters]);
@@ -50,60 +49,62 @@ const ProfileSearch = () => {
     })
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return (
+    <Loading />
+  )
 
   console.log("Rendering with profile:", profileArray[profileIndex]);
 
   return (
     <>
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}>
-      <Box style={{
-        marginTop: '70px',
-        width: '85vw',
+      <div style={{
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'center'
-        }}>
-        <div style={{
+      }}>
+        <Box style={{
+          marginTop: '70px',
+          width: '85vw',
           display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          marginBottom:  '30px'
+          flexDirection: 'column',
+          justifyContent: 'center'
         }}>
-        <Filters setFilters={setFilters} />
-        </div>
-      <Grid columns={3} rows={4} style={{
-        gap: '20px',
-        marginBottom: '20px',
-        width: '100%',
-        justifyContent: 'center'
-      }}>
-      <ProfileCard profile={profileArray[profileIndex]} />
-      <AllProfileInfo profile={profileArray[profileIndex]} />
-      <div style={{
-        position: 'fixed',
-        left: 0,
-        bottom: 0,
-        width: '100%',
-        backgroundColor: 'black',
-        textAlign: 'center',      // Center the buttons
-        padding: '10px 0'
-      }}>
-        <Button onClick={handleSkip} style={{ marginRight: '10px' }} variant="soft">Skip for now</Button>
-        <Button><NavLink to='/conversation' style={{
-          margin: '20px',
-          textDecoration: 'none',
-          color: 'inherit'
-        }}>Message</NavLink></Button>
-      </div>
-      </Grid>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginBottom: '30px'
+          }}>
+            <Filters setFilters={setFilters} />
+          </div>
+          <Grid columns={3} rows={4} style={{
+            gap: '20px',
+            marginBottom: '20px',
+            width: '100%',
+            justifyContent: 'center'
+          }}>
+            <ProfileCard profile={profileArray[profileIndex]} />
+            <AllProfileInfo profile={profileArray[profileIndex]} />
+            <div style={{
+              position: 'fixed',
+              left: 0,
+              bottom: 0,
+              width: '100%',
+              backgroundColor: 'black',
+              textAlign: 'center',      // Center the buttons
+              padding: '10px 0'
+            }}>
+              <Button onClick={handleSkip} style={{ marginRight: '10px' }} variant="soft">Skip for now</Button>
+              <Button><NavLink to='/conversation' style={{
+                margin: '20px',
+                textDecoration: 'none',
+                color: 'inherit'
+              }}>Message</NavLink></Button>
+            </div>
+          </Grid>
 
-      </Box>
+        </Box>
       </div>
     </>
   );

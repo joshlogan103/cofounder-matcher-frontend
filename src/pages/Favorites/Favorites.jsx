@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Box, Heading } from '@radix-ui/themes';
 import { getAllFavoritesByUserId, getProfileById } from '../../services/apiServices';
 import ProfileCard from '../../components/profileCard/profileCard.jsx';
+import Loading from '../../components/Loading/Loading.jsx';
+
 const Favorites = () => {
   const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,15 +34,15 @@ const Favorites = () => {
 
   if (loading) return (
     <Box style={{ width: '100%', padding: '20px', textAlign: 'center' }}>
-    <Heading>Favorited Profiles</Heading>
-    <div>Loading...</div>
+      <Heading>Favorited Profiles</Heading>
+      <Loading />
     </Box>
   )
 
   if (profiles.length === 0) return (
     <Box style={{ width: '100%', padding: '20px', textAlign: 'center' }}>
-    <Heading>Favorited Profiles</Heading>
-    <div>No Favorited Profiles Found</div>
+      <Heading>Favorited Profiles</Heading>
+      <div>No Favorited Profiles Found</div>
     </Box>
   )
 
