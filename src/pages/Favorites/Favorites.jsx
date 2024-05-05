@@ -31,14 +31,23 @@ const Favorites = () => {
   if (error) return <div>Error: {error}</div>;
   if (profiles.length === 0) return <div>No Favorites Found</div>;
   return (
-    <Box>
-      <br/><br/><br/>
+<Box style={{ width: '100%', padding: '20px', textAlign: 'center' }}>
       <Heading>My Favorite Profiles</Heading>
-      <Grid columns={1} style={{ gap: '20px' }}>
-        {profiles.map(profile => (
-          <ProfileCard key={profile._id} profile={profile} />
+      <Box
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '20px',
+          marginTop: '20px',
+        }}
+      >
+        {profiles.map((profile) => (
+          <Box key={profile._id} style={{ width: '80%' }}>
+            <ProfileCard profile={profile} />
+          </Box>
         ))}
-      </Grid>
+      </Box>
     </Box>
   );
 };

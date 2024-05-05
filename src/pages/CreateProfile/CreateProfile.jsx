@@ -110,7 +110,7 @@ const CreateProfile = () => {
         width: '100%',
         textAlign: 'center'
       }}>
-      <Box display="block" style={{ justifyContent: 'center', position: 'fixed', top: 0, zIndex: 1000, backgroundColor: 'rgba(17,17,17)', width: '100%',paddingTop: 50, paddingBottom: 0 }}>
+      <Box display="block" style={{ justifyContent: 'center', position: 'fixed', top: 0, zIndex: 1000, backgroundColor: 'black', width: '100%',paddingTop: 50, paddingBottom: 0 }}>
         <>
           <Heading >Create Profile</Heading>
           <br/>
@@ -130,7 +130,7 @@ const CreateProfile = () => {
         
         {/* Profile Picture */}
         <Text>Add a profile picture</Text>
-          <input type="file" accept="image/*" onChange={handleFileChange} />
+          <input type="file" id="profilePicture" accept="image/*" onChange={handleFileChange} />
           <br/>
         
         <br/>

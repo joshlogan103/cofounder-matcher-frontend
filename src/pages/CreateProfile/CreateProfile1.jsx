@@ -16,7 +16,7 @@ const CreateProfile1 = () => {
     previousEducation: '',
     programType: '',
     employmentHistory: '',
-    technical: '',
+    technical: false,
     impressiveAccomplishmnet: '',
   })
 
@@ -42,7 +42,20 @@ const CreateProfile1 = () => {
   }, []);
 
   const handleChange = (e) => {
-    setProfileData({ ...profileData, [e.target.name]: e.target.value })
+    const { name, value } = e.target;
+
+    // Convert technical value to boolean
+    if (name === "technical") {
+      setProfileData({
+        ...profileData,
+        [name]: value === "true"
+      });
+    } else {
+      setProfileData({
+        ...profileData,
+        [name]: value
+      });
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -86,7 +99,7 @@ const CreateProfile1 = () => {
         width: '100%',
         textAlign: 'center'
       }}>
-      <Box display="block" style={{ justifyContent: 'center', position: 'fixed', top: 0, zIndex: 1000, backgroundColor: 'rgba(17,17,17)', width: '100%',paddingTop: 50, paddingBottom: 0 }}>
+      <Box display="block" style={{ justifyContent: 'center', position: 'fixed', top: 0, zIndex: 1000, backgroundColor: 'black', width: '100%',paddingTop: 50, paddingBottom: 0 }}>
         <>
           <Heading >Create Profile</Heading>
           <br/>

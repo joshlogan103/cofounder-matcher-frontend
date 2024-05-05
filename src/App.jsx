@@ -24,21 +24,24 @@ import ProtectedRoutes from './protectedRoutes/ProtectedRoutes.jsx';
 function App() {
   return (
     <>
+      <div className="fixed-background"></div>
       <Navbar />
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/profile-search' element={<ProtectedRoutes><ProfileSearch /></ProtectedRoutes>} />
-        <Route path='/conversations' element={<Conversations />} />
-        <Route path='/create-account' element={<CreateAccount />} />
-        <Route path='/create-profile' element={<CreateProfile />} />
-        <Route path='/create-profile1' element={<CreateProfile1 />} />
-        <Route path='/create-profile2' element={<CreateProfile2 />} />
-        <Route path='/edit-profile' element={<EditProfile />} />
-        <Route path='/my-profile' element={<MyProfile />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/conversations/:conversationId' element={<ActiveConversation />} />
-        <Route path='/favorites' element={<Favorites />} />
-      </Routes>
+      <div className="scrollable-content">
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/profile-search' element={<ProtectedRoutes><ProfileSearch /></ProtectedRoutes>} />
+          <Route path='/conversations' element={<Conversations />} />
+          <Route path='/create-account' element={<CreateAccount />} />
+          <Route path='/create-profile' element={<CreateProfile />} />
+          <Route path='/create-profile1' element={<CreateProfile1 />} />
+          <Route path='/create-profile2' element={<CreateProfile2 />} />
+          <Route path='/edit-profile' element={<EditProfile />} />
+          <Route path='/my-profile' element={<MyProfile />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/conversations/:conversationId' element={<ActiveConversation />} />
+          <Route path='/favorites' element={<Favorites />} />
+        </Routes>
+      </div>
     </>
 
   )

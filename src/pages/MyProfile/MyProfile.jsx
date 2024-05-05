@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getProfileByUserId } from '../../services/apiServices';
+import { getProfileByUserId, getSchoolById } from '../../services/apiServices';
 import { Box, Button, Heading, Card, Flex, Text } from '@radix-ui/themes'
 import './MyProfile.css'
 
@@ -25,6 +25,7 @@ const MyProfile = () => {
         
         const payload = JSON.parse(atob(token.split('.')[1]));
         const userId = payload.userId;
+        console.log(userId);
 
         const apiResponse = await getProfileByUserId(userId);
         if (apiResponse.status !== 200) {
@@ -41,6 +42,26 @@ const MyProfile = () => {
 
     fetchData();
   }, []);
+
+  const [schoolName, setSchoolName] = useState('')
+
+  useEffect(() => {
+    const fetchSchoolName = async () => {
+      if (profile && profile.currentSchool) {
+        try {
+          const response = await getSchoolById(profile.currentSchool);
+          console.log("School name response:", response);
+          setSchoolName(response.data.name);
+          console.log("School name:", schoolName);
+        } catch (error) {
+          console.error("Failed to fetch school name:", error);
+          setSchoolName('Unknown School');
+        }
+      }
+    };
+
+    fetchSchoolName();
+  }, [profile]);
 
   if (loading) {
     return <div>Loading profile...</div>;
@@ -62,7 +83,7 @@ const MyProfile = () => {
         width: '100%',
         textAlign: 'center'
       }}>
-        <Box display="block" style={{ justifyContent: 'center', position: 'fixed', top: 0, zIndex: 1000, backgroundColor: 'rgba(17,17,17)', width: '100%',paddingTop: 50, paddingBottom: 0 }}>
+        <Box display="block" style={{ justifyContent: 'center', position: 'fixed', top: 0, zIndex: 1000, backgroundColor: 'black', width: '100%',paddingTop: 50, paddingBottom: 0 }}>
           <>
             <Heading>Profile Details</Heading>
             <br/>
@@ -70,7 +91,7 @@ const MyProfile = () => {
         </Box>
         
       {/* Basic Information */}
-        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '90%', paddingTop: 20, paddingBottom: 10, marginTop: 100 }}>
+        <Card style={{ justifyContent: 'center', textAlign: 'center', width: '90%', paddingTop: 20, paddingBottom: 10, marginTop: 50 }}>
             <Heading size="4">Basic Information</Heading>
             <br/>
             <Box>
@@ -82,7 +103,7 @@ const MyProfile = () => {
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.fullName || `${profile.firstName} ${profile.lastName}`}</Text>
             </Box>
             <Box>
-              <strong>Birth Date:</strong>
+              <strong>Birth Date</strong>
               <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.birthDate ? new Date(profile.birthDate).toLocaleDateString() : 'Not provided'}</Text>
             </Box>
             <Box>
@@ -109,7 +130,7 @@ const MyProfile = () => {
             <br/>
             <Box>
               <strong>Current School</strong>
-              <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{profile.currentSchool || 'Not provided'}</Text>
+              <Text display="block" size="2" color="gray" style={{ display: 'block' }}>{schoolName|| 'Not provided'}</Text>
             </Box>
             <Box>
               <strong>Current Program Type</strong>

@@ -53,14 +53,30 @@ const ProfileSearch = () => {
 
   return (
     <>
-      <Box>
+      <Box style={{
+        marginTop: '70px',
+        width: '100%'}}>
         <Filters setFilters={setFilters} />
       
       <Grid columns={3} rows={4} style={{ gap: '20px', marginBottom: '20px' }}>
       <ProfileCard profile={profileArray[profileIndex]} />
       <AllProfileInfo profile={profileArray[profileIndex]} />
-        <Button onClick={handleSkip}>Skip for now</Button><br/><br/>
-        <Button><NavLink to='/conversation'>Message</NavLink></Button>
+      <div style={{
+        position: 'fixed',
+        left: 0,
+        bottom: 0,
+        width: '100%',
+        backgroundColor: 'black',
+        textAlign: 'center',      // Center the buttons
+        padding: '10px 0'
+      }}>
+        <Button onClick={handleSkip} style={{ marginRight: '10px' }} variant="soft">Skip for now</Button>
+        <Button><NavLink to='/conversation' style={{
+          margin: '20px',
+          textDecoration: 'none',
+          color: 'inherit'
+        }}>Message</NavLink></Button>
+      </div>
       </Grid>
 
       </Box>
