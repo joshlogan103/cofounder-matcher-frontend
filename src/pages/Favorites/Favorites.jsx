@@ -59,7 +59,7 @@ const Favorites = () => {
         }}
       >
         {profiles.map((profile) => (
-          <Box key={profile._id} >
+          <Box key={profile._id}>
             <ProfileCard profile={profile} />
           </Box>
         ))}
@@ -67,6 +67,7 @@ const Favorites = () => {
     </Box>
   );
 };
+
 export default Favorites;
 
 
