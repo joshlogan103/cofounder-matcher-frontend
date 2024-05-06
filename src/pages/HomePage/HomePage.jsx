@@ -11,7 +11,7 @@ const HomePage = () => {
       display: 'flex',
       justifyContent: 'center'
     }}>
-    <Flex direction='column' alignItems='center' wrap='wrap'
+    <Flex direction='column' align='center' wrap='wrap'
     style={{
       display: 'flex',
       flexDirection: 'column',

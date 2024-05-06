@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Filters from '../../components/filters/filters.jsx';
-import { Grid, Button, Box, Flex, Dialog, Text, TextField } from '@radix-ui/themes';
+import { Grid, Button, Box, Flex, Dialog, TextField } from '@radix-ui/themes';
 import { getProfilesByQuery, createMessageAndCreateConversation } from '../../services/apiServices.js';
 import ProfileCard from '../../components/profileCard/profileCard.jsx';
 import AllProfileInfo from '../../components/allProfileInfo/allProfileInfo.jsx';
@@ -74,7 +74,7 @@ const ProfileSearch = () => {
   }
 
   const handleSend = () => {
-    createMessageAndCreateConversation({ receiverId: profileArray[profileIndex]._id, content: messageContet, timeSent: new Date()})
+    createMessageAndCreateConversation({ receiverId: profileArray[profileIndex].userId, content: messageContet, timeSent: new Date()})
   }
 
   if (loading) return (

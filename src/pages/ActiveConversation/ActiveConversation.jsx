@@ -54,12 +54,14 @@ const ActiveConversation = () => {
 
   }, [conversationId])
 
+  window.scrollTo(0, document.body.scrollHeight,{ behavior: "smooth"})
+
   return (
     <>
       <div style={{ textAlign: 'center' }}>
         <Text style={{ marginTop: '30px' }}>{loading ? '...' : `${interlocutor.firstName} ${interlocutor.lastName}`}</Text>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '30px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '30px', marginBottom: '100px'}}>
         {conversation.messages && conversation.messages.map(message => (
           message.senderId === userId ?
             <div key={message._id} className='sent'>
@@ -72,7 +74,7 @@ const ActiveConversation = () => {
 
         ))}
       </div>
-      <div className='typing-winow' style={{ display: 'flex', position: 'fixed', bottom: 10, width: '100vw', justifyContent: 'center' }}>
+      <div className='typing-winow' style={{ display: 'flex', position: 'fixed', bottom: 10, width: '100vw', justifyContent: 'center', marginTop: '100px'}}>
         <TextField.Root id="text" name="text" value={text} onChange={handleChange} placeholder={`Message ${interlocutor.firstName}`} style={{ width: '100vw', maxWidth: '800px', marginRight: '20px', marginLeft: '20px' }}>
           <TextField.Slot />
         </TextField.Root>

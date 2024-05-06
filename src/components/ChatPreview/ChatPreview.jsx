@@ -52,7 +52,11 @@ const ChatPreview = ({ conversation }) => {
             />
               <Box>
                 <Text key={interlocutor._id} as="div" size="2" weight="bold">{profile.fullName ? profile.fullName : `${profile.firstName} ${profile.lastName}`}</Text>
-                <Text as="div" size="2" color="gray">
+                <Text as="div" size="2" color="gray" style={{
+                  maxWidth: '50vw',
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
+                  textOverflow: 'ellipsis'}}>
                   {lastMessage.content}
                 </Text>
               </Box>

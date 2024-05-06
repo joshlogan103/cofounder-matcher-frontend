@@ -2,11 +2,13 @@ import { Card, Text, Button, Avatar, Box, Flex } from '@radix-ui/themes';
 import { useState, useEffect, useCallback } from 'react';
 import { createFavorite, getSchoolById, deleteFavoriteById, getAllFavoritesByUserId } from '../../services/apiServices.js';
 import { StarIconEmpty, StarIconFilled } from '../StarIcons/StarIcons.jsx';
+import { useNavigate } from 'react-router';
 
 const ProfileCard = ({ profile }) => {
   const [favoriteStatus, setFavoriteStatus] = useState(false)
   const [favoriteId, setFavoriteId] = useState('')
   const [schoolName, setSchoolName] = useState('')
+  const navigate = useNavigate()
 
   const addToFavorites = useCallback(async () => {
     try {
@@ -34,6 +36,10 @@ const ProfileCard = ({ profile }) => {
       console.error("Error removing from favorites:", error);
     }
   }, [favoriteId, profile])
+
+  const handleViewProfile = () => {
+    navigate(`/view-profile/${profile._id}`)
+  }
 
   useEffect(() => {
     const fetchSchoolName = async () => {
@@ -85,7 +91,7 @@ const ProfileCard = ({ profile }) => {
               fallback=""
             />
             <Box>
-              <Text as="div" size="2" weight="bold">
+              <Text as="div" size="2" weight="bold" onClick={handleViewProfile} className='profile-full-name'>
                 {profile.fullName ? profile.fullName : `${profile.firstName} ${profile.lastName}`}
               </Text>
               <Text as="div" size="2" color="gray">

@@ -18,6 +18,7 @@ import ActiveConversation from './pages/ActiveConversation/ActiveConversation.js
 import EditProfile from './pages/EditProfile/EditProfile.jsx';
 import MyProfile from './pages/MyProfile/MyProfile.jsx';
 import Favorites from './pages/Favorites/Favorites.jsx';
+import ViewProfile from './pages/ViewProfile/ViewProfile.jsx';
 import Navbar from './components/navBar/navBar.jsx'
 import ProtectedRoutes from './protectedRoutes/ProtectedRoutes.jsx';
 
@@ -40,6 +41,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/active-conversation/:conversationId' element={<ActiveConversation />} />
           <Route path='/favorites' element={<Favorites />} />
+          <Route path='/view-profile/:profileId' element={<ViewProfile />} />
         </Routes>
       </div>
     </>

@@ -19,7 +19,7 @@ const MessageBox = ({ message, status }) => {
 
   return (
     <>
-      <Box style={{ marginBottom: '20px', width: '60vw', maxWidth: '800px' }}>
+      <Box style={{ marginBottom: '20px', width: '80vw', maxWidth: '800px' }}>
         <Card>
           <Flex align="center" justify="flex-start" style={{
             flexDirection: status === 'received' ? 'row' : 'row-reverse'
