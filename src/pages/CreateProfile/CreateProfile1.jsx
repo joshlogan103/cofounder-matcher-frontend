@@ -164,7 +164,7 @@ const CreateProfile1 = () => {
         <br/>
 
         {/*Submit Button*/}
-        <Button type="submit">Save and Continue</Button>
+        <Button type="submit" style={{marginBottom: '20px'}}>Save and Continue</Button>
         <br/>
 
       </form>

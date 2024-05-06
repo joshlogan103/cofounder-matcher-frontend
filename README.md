@@ -35,6 +35,7 @@ Josh Logan -
 ## Attributions
 
 * Radix-ui
+* Firebase
 * Vite
 
 ## Techonologies Used
@@ -58,6 +59,7 @@ Josh Logan -
 * Make small design updates to make the app feel as modern and clean as possible
 * Make the edit profile page auto-fill with existing values to ease profile updates for the user
 * Create an admin portal for management of schools and users
+* Convert all styling to exactly match the Radix components
 
 
 
