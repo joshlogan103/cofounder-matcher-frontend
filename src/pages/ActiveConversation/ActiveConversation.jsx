@@ -54,8 +54,6 @@ const ActiveConversation = () => {
 
   }, [conversationId])
 
-  window.scrollTo(0, document.body.scrollHeight,{ behavior: "smooth"})
-
   return (
     <>
       <div style={{ textAlign: 'center' }}>
