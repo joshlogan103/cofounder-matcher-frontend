@@ -39,6 +39,9 @@ const MessageBox = ({ message, status }) => {
                 <Text as="div" size="2" color="gray">
                   {message.content}
                 </Text>
+                <Text as="div" size="1" color="gray" style={{ textAlign: status === 'sent' ? 'right' : ''}}>
+                  {message.timeSent.split('T')[1].substring(0,5)}
+                </Text>
               </Box>
           </Flex>
         </Card>

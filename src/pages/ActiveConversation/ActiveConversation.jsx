@@ -24,7 +24,8 @@ const ActiveConversation = () => {
   }
 
   const handleSend = () => {
-    createMessageAndUpdateConversation(conversationId, {content: text, senderId: userId, receiverId: interlocutor._id, timeSent: new Date()})
+    createMessageAndUpdateConversation(conversationId, { content: text, receiverId: interlocutor._id, timeSent: new Date() })
+    setText('')
   }
 
   useEffect(() => {
@@ -47,7 +48,11 @@ const ActiveConversation = () => {
     }
     fetchConversation()
 
-  }, [])
+    const fetchInterval = setInterval(fetchConversation,3000)
+
+    return () => clearInterval(fetchInterval)
+
+  }, [conversationId])
 
   return (
     <>
@@ -68,7 +73,7 @@ const ActiveConversation = () => {
         ))}
       </div>
       <div className='typing-winow' style={{ display: 'flex', position: 'fixed', bottom: 10, width: '100vw', justifyContent: 'center' }}>
-        <TextField.Root id="text" name="text" value={text} onChange={handleChange} placeholder={`Message ${interlocutor.firstName}`} style={{ width: '100vw', maxWidth: '800px', marginRight: '20px', marginLeft: '20px'}}>
+        <TextField.Root id="text" name="text" value={text} onChange={handleChange} placeholder={`Message ${interlocutor.firstName}`} style={{ width: '100vw', maxWidth: '800px', marginRight: '20px', marginLeft: '20px' }}>
           <TextField.Slot />
         </TextField.Root>
         <Button onClick={handleSend} style={{ marginRight: '30px' }}>Send</Button>

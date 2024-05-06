@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import Filters from '../../components/filters/filters.jsx';
-import { Grid, Button, Box } from '@radix-ui/themes';
-import { NavLink } from 'react-router-dom';
-import { getProfilesByQuery } from '../../services/apiServices.js';
+import { Grid, Button, Box, Flex, Dialog, Text, TextField } from '@radix-ui/themes';
+import { getProfilesByQuery, createMessageAndCreateConversation } from '../../services/apiServices.js';
 import ProfileCard from '../../components/profileCard/profileCard.jsx';
 import AllProfileInfo from '../../components/allProfileInfo/allProfileInfo.jsx';
 import Loading from '../../components/Loading/Loading.jsx';
@@ -14,6 +13,7 @@ const ProfileSearch = () => {
   const [profileArray, setProfileArray] = useState([]);
   const [profileIndex, setProfileIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [messageContet, setMessageContent] = useState('')
 
   const query = {}
 
@@ -67,13 +67,19 @@ const ProfileSearch = () => {
       left: 0,
       behavior: "smooth"
     })
-  };
+  }
+
+  const handleTextInput = (e) => {
+    setMessageContent(e.target.value)
+  }
+
+  const handleSend = () => {
+    createMessageAndCreateConversation({ receiverId: profileArray[profileIndex]._id, content: messageContet, timeSent: new Date()})
+  }
 
   if (loading) return (
     <Loading />
   )
-
-  console.log("Rendering with profile:", profileArray[profileIndex]);
 
   return (
     <>
@@ -96,7 +102,7 @@ const ProfileSearch = () => {
             justifyContent: 'center',
             marginBottom: '30px'
           }}>
-            <Filters setFilters={setFilters} handleSearch={handleSearch}/>
+            <Filters setFilters={setFilters} handleSearch={handleSearch} />
           </div>
           <Grid columns={3} rows={4} style={{
             gap: '20px',
@@ -116,16 +122,38 @@ const ProfileSearch = () => {
               padding: '10px 0'
             }}>
               <Button onClick={handleSkip} style={{ marginRight: '10px' }} variant="soft">Skip for now</Button>
-              <Button><NavLink to='/conversation' style={{
-                margin: '20px',
-                textDecoration: 'none',
-                color: 'inherit'
-              }}>Message</NavLink></Button>
+              <Dialog.Root>
+                <Dialog.Trigger>
+                  <Button>Message</Button>
+                </Dialog.Trigger>
+                <Dialog.Content maxWidth="450px">
+                  <Dialog.Title>Start a Chat</Dialog.Title>
+                  <Flex direction="column" gap="3">
+                      <TextField.Root
+                        placeholder={`Send a Message to ${profileArray[profileIndex].firstName}`}
+                        id='messageContent'
+                        name='messageContent'
+                        value={messageContet}
+                        onChange={handleTextInput}
+                      />
+                  </Flex>
+                  <Flex gap="3" mt="4" justify="end">
+                    <Dialog.Close>
+                      <Button variant="soft" color="gray">
+                        Cancel
+                      </Button>
+                    </Dialog.Close>
+                    <Dialog.Close>
+                      <Button onClick={handleSend}>Send</Button>
+                    </Dialog.Close>
+                  </Flex>
+                </Dialog.Content>
+              </Dialog.Root>
             </div>
           </Grid>
-
         </Box>
       </div>
+
     </>
   );
 };
