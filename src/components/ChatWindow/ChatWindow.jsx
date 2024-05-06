@@ -1,9 +1,11 @@
 import { Flex, Button, Box, Card, Text, Avatar } from '@radix-ui/themes'
 import { useState, useEffect } from 'react'
 import { getProfileByUserId } from '../../services/apiServices'
+import { useNavigate } from 'react-router'
 
-const ChatWindow = ({ conversation, handleChat }) => {
+const ChatWindow = ({ conversation }) => {
   const [profile, setProfile] = useState('')
+  const navigate = useNavigate()
 
   const token = sessionStorage.getItem('cofoundermatchersessionkey48484');
   if (!token) {
@@ -18,6 +20,10 @@ const ChatWindow = ({ conversation, handleChat }) => {
   const interlocutor = conversation.users.find(user => {
     return user._id !== userId
   })
+
+  const handleChat = (conversationId) => {
+    navigate(`/active-conversation/${conversationId}`)
+  }
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -51,7 +57,7 @@ const ChatWindow = ({ conversation, handleChat }) => {
                 </Text>
               </Box>
             </Flex>
-            <Button onClick={handleChat}>Chat</Button>
+            <Button onClick={() => handleChat(conversation._id)}>Chat</Button>
           </Flex>
         </Card>
       </Box>

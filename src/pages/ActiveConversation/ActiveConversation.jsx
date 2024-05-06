@@ -1,31 +1,48 @@
-import { useParams } from 'react-router-dom'
-import WebSocket from '../../components/WebSocket/WebSocket'
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { userId } from '../../helpers'
-
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router'
+import { getConversationById } from '../../services/apiServices'
+import MessageBox from '../../components/MessageBox/MessageBox'
+import './ActiveConversation.css'
 
 const ActiveConversation = () => {
-  const [messages, setMessages] = useState([])
-  const [receiverId, setReceiverId] = useState("")
+  const [conversation, setConversation] = useState({ messages: [] })
   const { conversationId } = useParams()
 
-  const fetchConversationsMessages = async () => {
-    const convs = await axios.get(`http://localhost:3001/conversations/${conversationId}`)
-    console.log(convs.data, "convs");
-
-    setReceiverId(convs.data?.users[0] === userId ? convs.data?.users[1] : convs.data?.users[0])
-    setMessages(convs.data?.messages || [])
+  const token = sessionStorage.getItem('cofoundermatchersessionkey48484');
+  if (!token) {
+    throw new Error("Authentication token not found");
   }
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  const userId = payload.userId;
 
   useEffect(() => {
-    fetchConversationsMessages()
+    const fetchConversation = async () => {
+      const activeConversation = await getConversationById(conversationId)
+      if (activeConversation) {
+        setConversation(activeConversation.data)
+        console.log(conversation)
+      }
+    }
+    fetchConversation()
   }, [])
 
   return (
-    <div>{conversationId}
-      <WebSocket receiverId={receiverId} setMessages={setMessages} messages={messages} />
-    </div>
+    <>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '40px' }}>
+        {conversation.messages && conversation.messages.map(message => (
+          message.senderId === userId ?
+            <div key={message._id} className='sent'>
+              <MessageBox message={message} status={'sent'}/>
+            </div>
+            :
+            <div key={message._id} className='received'>
+              <MessageBox message={message} status={'received'}/>
+            </div>
+
+        ))}
+      </div>
+    </>
+
   )
 }
 
