@@ -55,6 +55,9 @@ Josh Logan -
 
 * Cache logged in state client side with a cache control directive to avoid loading times for components and protected routes that require checking that the user is logged in
 * Revisit Socket.io and implement chat via the websocket
+* Make small design updates to make the app feel as modern and clean as possible
+* Make the edit profile page auto-fill with existing values to ease profile updates for the user
+* Create an admin portal for management of schools and users
 
 
 
