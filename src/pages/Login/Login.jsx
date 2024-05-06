@@ -29,7 +29,7 @@ const Login = () => {
       }
       setToken(apiResponse.data.accessToken)
       setIsUserLoggedIn(verifyLoggedIn())
-      navigate('/')
+      navigate('/profile-search')
     } catch (error) {
       console.error(error)
     }

@@ -29,7 +29,7 @@ const HomePage = () => {
       <Heading size="6">Great things happen when great minds come together.</Heading><br/>
 
       <Text> Whether you&apos;re looking for a cofounder for your next startup, seeking advice on your career path, or just want to connect with fellow students who share your professional interests, you&apos;ve come to the right place.</Text><br/>
-      <Button> <NavLink to='/create-account'>Create an Account </NavLink></Button><br/>
+      <Button className='create-account-button'> <NavLink to='/create-account' className='create-account-navlink'>Create an Account </NavLink></Button><br/>
       <Text>Already have an account? <NavLink to='/login'>  Login</NavLink></Text><br/>
       <Heading size="6">Join the community</Heading><br/>
       <Text>Users on top campuses</Text>

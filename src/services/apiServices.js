@@ -46,6 +46,10 @@ export const getConversationById = async (id) => {
   return await api.get(`/conversations/${id}`)
 }
 
+export const getConversationsByUserId = async () => {
+  return await api.get(`/conversations/inbox`)
+}
+
 export const createConversation = async (payload) => {
   return await api.post('/conversations', payload)
 }
@@ -69,11 +73,19 @@ export const getMessageById = async (id) => {
 }
 
 export const createMessageAndCreateConversation = async (payload) => {
-  return await api.post('/messages/new-conversation', payload)
+  return await api.post('/messages/new-conversation', payload, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
 }
 
 export const createMessageAndUpdateConversation = async (conversationId, payload) => {
-  return await api.post(`/messages/update-conversation/${conversationId}`, payload)
+  return await api.post(`/messages/update-conversation/${conversationId}`, payload, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
 }
 
 export const updateMessageById = async (id, payload) => {

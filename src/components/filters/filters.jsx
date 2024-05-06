@@ -9,17 +9,23 @@ import { getProgramTypes } from '../../services/apiServices.js';
 const Filters = ({ setFilters, handleSearch }) => {
   const [programTypes, setProgramTypes] = useState([])
   const [schools, setSchools] = useState([])
+  const [technical, setTechnical] = useState(false)
+  const [schoolSelected, setSchoolSelected] = useState(['School'])
+  const [programSelected, setProgramSelected] = useState('Program')
 
-  const handleSchoolChange = (currentSchool) => {
-    setFilters(filters => ({ ...filters, currentSchool }));
+  const handleSchoolChange = (schoolName, schoolId) => {
+    setFilters(filters => ({ ...filters, currentSchool: schoolId }));
+    setSchoolSelected(schoolName)
   };
 
   const handleProgramChange = (programType) => {
     setFilters(filters => ({ ...filters, programType }));
+    setProgramSelected(programType)
   };
 
-  const handleTechnicalChange = (event) => {
-    setFilters(filters => ({ ...filters, technical: event.target.checked }));
+  const handleTechnicalChange = (checked) => {
+    setTechnical(checked)
+    setFilters(filters => ({ ...filters, technical: checked }));
   };
 
   useEffect(() => {
@@ -54,13 +60,13 @@ const Filters = ({ setFilters, handleSearch }) => {
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
                 <Button variant="soft">
-                  School
+                  {schoolSelected}
                   <DropdownMenu.TriggerIcon />
                 </Button>
               </DropdownMenu.Trigger>
               <DropdownMenu.Content>
                 {schools && schools.map((school, index) => (
-                  <DropdownMenu.Item key={index} onSelect={() => handleSchoolChange(school._id)}>{school.name}</DropdownMenu.Item>
+                  <DropdownMenu.Item key={index} onSelect={() => handleSchoolChange(school.name, school._id)}>{school.name}</DropdownMenu.Item>
                 ))}
               </DropdownMenu.Content>
             </DropdownMenu.Root>
@@ -69,7 +75,7 @@ const Filters = ({ setFilters, handleSearch }) => {
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
                 <Button variant="soft">
-                  Program
+                  {programSelected}
                   <DropdownMenu.TriggerIcon />
                 </Button>
               </DropdownMenu.Trigger>
@@ -81,13 +87,17 @@ const Filters = ({ setFilters, handleSearch }) => {
             </DropdownMenu.Root>
 
             {/* Technical */}
-            <CheckboxGroup.Root defaultValue={[]} name="technical">
+            <CheckboxGroup.Root value={technical ? ['1'] : []}
+              name="technical"
+              onValueChange={(values) => {
+                handleTechnicalChange(values.includes('1'))
+              }}>
               <CheckboxGroup.Item value="1" onCheckedChange={handleTechnicalChange}>Technical</CheckboxGroup.Item>
             </CheckboxGroup.Root>
 
           </div>
         </Flex>
-        <Button onClick={handleSearch} style={{ marginTop: '20px'}}>Search</Button>
+        <Button onClick={handleSearch} style={{ marginTop: '20px' }}>Search</Button>
       </Flex>
     </>
   )
