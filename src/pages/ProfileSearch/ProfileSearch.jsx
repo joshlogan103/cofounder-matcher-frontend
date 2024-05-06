@@ -38,7 +38,27 @@ const ProfileSearch = () => {
       setLoading(false);
     }
     fetchProfiles();
-  }, [filters]);
+  }, []);
+
+  const handleSearch = async () => {
+    setLoading(true);
+    console.log('Filtros aplicados:', filters);
+    Object.entries(filters).map(([key, value]) => {
+      if (value) {
+        query[key] = value
+      }
+      return null;
+    })
+    const profiles = await getProfilesByQuery(query);
+    if (profiles && profiles.data && profiles.data.length > 0) {
+      setProfileArray(profiles.data);
+      setProfileIndex(0);
+      console.log(profileArray)
+    } else {
+      setProfileArray([]);
+    }
+    setLoading(false);
+  }
 
   const handleSkip = () => {
     setProfileIndex(prevIndex => (prevIndex + 1) % profileArray.length);
@@ -76,7 +96,7 @@ const ProfileSearch = () => {
             justifyContent: 'center',
             marginBottom: '30px'
           }}>
-            <Filters setFilters={setFilters} />
+            <Filters setFilters={setFilters} handleSearch={handleSearch}/>
           </div>
           <Grid columns={3} rows={4} style={{
             gap: '20px',

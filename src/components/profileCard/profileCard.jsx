@@ -21,7 +21,7 @@ const ProfileCard = ({ profile }) => {
     } catch (error) {
       console.error("Error adding to favorites:", error);
     }
-  },[profile._id])
+  },[profile])
 
   const removeFromFavorites = useCallback(async () => {
     if (!favoriteId) return

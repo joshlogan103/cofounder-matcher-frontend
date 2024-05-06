@@ -42,7 +42,8 @@ const Favorites = () => {
   if (profiles.length === 0) return (
     <Box style={{ width: '100%', padding: '20px', textAlign: 'center' }}>
       <Heading>Favorited Profiles</Heading>
-      <div>No Favorited Profiles Found</div>
+      <div style={{ marginTop: '40px'}}>You haven&apos;t favorited any profiles.</div>
+      <div style={{ marginTop: '10px'}}>You can click on Search Profiles in the menu and click on the star icons to add profiles to your favorite&apos;s.</div>
     </Box>
   )
 
@@ -55,7 +56,7 @@ const Favorites = () => {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '20px',
-          marginTop: '20px',
+          marginTop: '40px',
         }}
       >
         {profiles.map((profile) => (
