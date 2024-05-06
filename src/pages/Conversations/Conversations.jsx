@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { getConversationsByUserId } from "../../services/apiServices"
-import ChatWindow from "../../components/ChatWindow/ChatWindow"
+import ChatPreview from "../../components/ChatPreview/ChatPreview"
 
 const Conversations = () => {
   const [conversationsArray, setConversationsArray] = useState([])
@@ -22,7 +22,7 @@ const Conversations = () => {
     <>
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '40px'}}>
     { conversationsArray.map(conversation => (
-        <ChatWindow key={conversation._id} conversation={conversation} />
+        <ChatPreview key={conversation._id} conversation={conversation} />
       ))}
     </div>
     </>

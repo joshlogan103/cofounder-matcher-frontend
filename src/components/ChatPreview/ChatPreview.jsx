@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { getProfileByUserId } from '../../services/apiServices'
 import { useNavigate } from 'react-router'
 
-const ChatWindow = ({ conversation }) => {
+const ChatPreview = ({ conversation }) => {
   const [profile, setProfile] = useState('')
   const navigate = useNavigate()
 
@@ -65,4 +65,4 @@ const ChatWindow = ({ conversation }) => {
   )
 }
 
-export default ChatWindow
+export default ChatPreview

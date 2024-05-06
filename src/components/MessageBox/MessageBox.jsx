@@ -36,7 +36,6 @@ const MessageBox = ({ message, status }) => {
                 }}
               />
               <Box>
-                <Text key={profile._id} as="div" size="2" weight="bold" style={{ textAlign: status === 'sent' ? 'right' : 'left'}}>{profile.fullName ? profile.fullName : `${profile.firstName} ${profile.lastName}`}</Text>
                 <Text as="div" size="2" color="gray">
                   {message.content}
                 </Text>
