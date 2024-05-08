@@ -69,7 +69,6 @@ const ActiveConversation = () => {
             <div key={message._id} className='received'>
               <MessageBox message={message} status={'received'} />
             </div>
-
         ))}
       </div>
       <br/>
