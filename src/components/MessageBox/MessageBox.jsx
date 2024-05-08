@@ -36,7 +36,7 @@ const MessageBox = ({ message, status }) => {
                 }}
               />
               <Box>
-                <Text as="div" size="2" color="gray">
+                <Text as="div" size="2" color="white">
                   {message.content}
                 </Text>
                 <Text as="div" size="1" color="gray" style={{ textAlign: status === 'sent' ? 'right' : ''}}>

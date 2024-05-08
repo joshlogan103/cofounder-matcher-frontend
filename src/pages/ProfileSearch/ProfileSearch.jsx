@@ -38,6 +38,9 @@ const ProfileSearch = () => {
       setLoading(false);
     }
     fetchProfiles();
+    setFilters({
+      currentSchool: '', program: '', technical: false
+    })
   }, []);
 
   const handleSearch = async () => {
