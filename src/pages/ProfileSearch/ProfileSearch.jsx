@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Filters from '../../components/filters/filters.jsx';
-import { Grid, Button, Box, Flex, Dialog, TextField } from '@radix-ui/themes';
+import { Grid, Button, Box, Flex, Dialog, TextField, Text } from '@radix-ui/themes';
 import { getProfilesByQuery, createMessageAndCreateConversation } from '../../services/apiServices.js';
 import ProfileCard from '../../components/profileCard/profileCard.jsx';
 import AllProfileInfo from '../../components/allProfileInfo/allProfileInfo.jsx';
@@ -74,7 +74,7 @@ const ProfileSearch = () => {
   }
 
   const handleSend = () => {
-    createMessageAndCreateConversation({ receiverId: profileArray[profileIndex].userId, content: messageContet, timeSent: new Date()})
+    createMessageAndCreateConversation({ receiverId: profileArray[profileIndex].userId, content: messageContet, timeSent: new Date() })
   }
 
   if (loading) return (
@@ -110,46 +110,53 @@ const ProfileSearch = () => {
             width: '100%',
             justifyContent: 'center'
           }}>
-            <ProfileCard profile={profileArray[profileIndex]} />
-            <AllProfileInfo profile={profileArray[profileIndex]} />
-            <div style={{
-              position: 'fixed',
-              left: 0,
-              bottom: 0,
-              width: '100%',
-              backgroundColor: 'black',
-              textAlign: 'center',      // Center the buttons
-              padding: '10px 0'
-            }}>
-              <Button onClick={handleSkip} style={{ marginRight: '10px' }} variant="soft">Skip for now</Button>
-              <Dialog.Root>
-                <Dialog.Trigger>
-                  <Button>Message</Button>
-                </Dialog.Trigger>
-                <Dialog.Content maxWidth="450px">
-                  <Dialog.Title>Start a Chat</Dialog.Title>
-                  <Flex direction="column" gap="3">
-                      <TextField.Root
-                        placeholder={`Send a Message to ${profileArray[profileIndex].firstName}`}
-                        id='messageContent'
-                        name='messageContent'
-                        value={messageContet}
-                        onChange={handleTextInput}
-                      />
-                  </Flex>
-                  <Flex gap="3" mt="4" justify="end">
-                    <Dialog.Close>
-                      <Button variant="soft" color="gray">
-                        Cancel
-                      </Button>
-                    </Dialog.Close>
-                    <Dialog.Close>
-                      <Button onClick={handleSend}>Send</Button>
-                    </Dialog.Close>
-                  </Flex>
-                </Dialog.Content>
-              </Dialog.Root>
-            </div>
+            {profileArray.length > 0 ?
+              <>
+                <ProfileCard profile={profileArray[profileIndex]} />
+                <AllProfileInfo profile={profileArray[profileIndex]} />
+                <div style={{
+                  position: 'fixed',
+                  left: 0,
+                  bottom: 0,
+                  width: '100%',
+                  backgroundColor: 'black',
+                  textAlign: 'center',      // Center the buttons
+                  padding: '10px 0'
+                }}>
+                  <Button onClick={handleSkip} style={{ marginRight: '10px' }} variant="soft">Skip for now</Button>
+                  <Dialog.Root>
+                    <Dialog.Trigger>
+                      <Button>Message</Button>
+                    </Dialog.Trigger>
+                    <Dialog.Content maxWidth="450px">
+                      <Dialog.Title>Start a Chat</Dialog.Title>
+                      <Flex direction="column" gap="3">
+                        <TextField.Root
+                          placeholder={`Send a Message to ${profileArray[profileIndex].firstName}`}
+                          id='messageContent'
+                          name='messageContent'
+                          value={messageContet}
+                          onChange={handleTextInput}
+                        />
+                      </Flex>
+                      <Flex gap="3" mt="4" justify="end">
+                        <Dialog.Close>
+                          <Button variant="soft" color="gray">
+                            Cancel
+                          </Button>
+                        </Dialog.Close>
+                        <Dialog.Close>
+                          <Button onClick={handleSend}>Send</Button>
+                        </Dialog.Close>
+                      </Flex>
+                    </Dialog.Content>
+                  </Dialog.Root>
+                </div>
+              </>
+              :
+              <div style={{ marginTop: '40px', textAlign: 'center' }}>
+                <Text className='no-profiles-found'>No profiles were found matching your search results.</Text></div>
+            }
           </Grid>
         </Box>
       </div>
