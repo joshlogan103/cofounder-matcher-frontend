@@ -48,7 +48,7 @@ const ActiveConversation = () => {
     }
     fetchConversation()
 
-    const fetchInterval = setInterval(fetchConversation,3000)
+    const fetchInterval = setInterval(fetchConversation, 3000)
 
     return () => clearInterval(fetchInterval)
 
@@ -56,10 +56,12 @@ const ActiveConversation = () => {
 
   return (
     <>
-      <div style={{ textAlign: 'center' }}>
+    <div style={{ height: '80px', width: '100%', position: 'fixed', top: 0, zIndex: 8888, backgroundColor: 'black'}}>
+      <div style={{ textAlign: 'center', position: 'fixed', top: '50px', width: '300px', left: '50%', marginLeft: '-150px', zIndex: 9999}}>
         <Text style={{ marginTop: '30px' }}>{loading ? '...' : `${interlocutor.firstName} ${interlocutor.lastName}`}</Text>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '30px', marginBottom: '60px'}}>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '60px', marginBottom: '60px'}}>
         {conversation.messages && conversation.messages.map(message => (
           message.senderId === userId ?
             <div key={message._id} className='sent'>
@@ -72,11 +74,13 @@ const ActiveConversation = () => {
         ))}
       </div>
       <br/>
+      <div className='typing-window-background' style={{backgroundColor: 'black', width: '100vw', height: '8vh', position: 'fixed', bottom: 0}}>
       <div className='typing-winow' style={{ display: 'flex', position: 'fixed', bottom: 10, width: '100vw', justifyContent: 'center', marginTop: '100px'}}>
         <TextField.Root id="text" name="text" value={text} onChange={handleChange} placeholder={`Message ${interlocutor.firstName}`} style={{ width: '100vw', maxWidth: '800px', marginRight: '20px', marginLeft: '20px' }}>
           <TextField.Slot />
         </TextField.Root>
         <Button onClick={handleSend} style={{ marginRight: '30px' }}>Send</Button>
+      </div>
       </div>
     </>
 
